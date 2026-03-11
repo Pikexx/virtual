@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Virtual Hug </title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="pixel-bg"></div>
+  <div id="hearts-container"></div>
+
+  <!-- Ambient glow orbs -->
+  <div class="glow-orb orb1"></div>
+  <div class="glow-orb orb2"></div>
+  <div class="glow-orb orb3"></div>
+
+  <div class="mc-card" id="main-card">
+
+    <div class="mc-title-bar">
+      <span class="pixel-heart">♥</span>
+      <span class="title-text">Virtual Hug</span>
+      <span class="pixel-heart">♥</span>
+    </div>
+
+    <div class="mc-body">
+
+      <!-- Tulip image (replaces Steve) -->
+      <div class="tulip-wrap" id="tulip-wrap">
+        <img src="tulips.jpg" alt="Pink tulips" class="tulip-img" id="tulip-img"/>
+      </div>
+
+      <p class="main-msg">This is a hug from me to you. 🌷</p>
+
+      <button class="mc-btn" id="hug-btn" onclick="sendHug()">
+        <span class="btn-inner">[ Hug me ]</span>
+      </button>
+
+      <div class="msg-box" id="msg-box">
+        <div class="msg-box-title">
+          <span>💌</span> A message for you
+        </div>
+        <div class="msg-box-body" id="msg-text"></div>
+      </div>
+
+      <!-- Spotify section -->
+      <div class="spotify-section">
+        <div class="spotify-label">
+          <span class="music-note">♪</span> Our Songs <span class="music-note">♪</span>
+        </div>
+        <div class="spotify-grid">
+
+          <div class="spotify-track-wrap" style="--delay:0.05s">
+            <iframe src="https://open.spotify.com/embed/track/2IMODbij0lZ5CuAjZi0IDE?utm_source=generator&theme=0"
+              width="100%" height="80" frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"></iframe>
+          </div>
+
+          <div class="spotify-track-wrap" style="--delay:0.15s">
+            <iframe src="https://open.spotify.com/embed/track/3KhjY6JxrGo6ii77SbILG7?utm_source=generator&theme=0"
+              width="100%" height="80" frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"></iframe>
+          </div>
+
+          <div class="spotify-track-wrap" style="--delay:0.25s">
+            <iframe src="https://open.spotify.com/embed/track/43pylwgg4xpOiQ5oCIi33l?utm_source=generator&theme=0"
+              width="100%" height="80" frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"></iframe>
+          </div>
+
+          <div class="spotify-track-wrap" style="--delay:0.35s">
+            <iframe src="https://open.spotify.com/embed/track/2s9DQB5ftRcdIRpj3n3pDR?utm_source=generator&theme=0"
+              width="100%" height="80" frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"></iframe>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Felicity definition -->
+      <div class="felicity-card">
+        <div class="felicity-word">fe·lic·i·ty</div>
+        <div class="felicity-phonetic">/fəˈlɪsɪti/</div>
+        <div class="felicity-pos">noun</div>
+        <div class="felicity-def">✦ intense happiness; the state of being joyful and deeply content ✦</div>
+        <div class="felicity-note">— that's what you are to me 🌷</div>
+      </div>
+
+      <!-- Voice Messages -->
+      <div class="voice-section">
+        <div class="voice-label">
+          <span class="voice-icon">🎙</span> Voice Messages <span class="voice-icon">🎙</span>
+        </div>
+        <div class="voice-grid">
+
+          <div class="voice-card" style="--vdelay:0.05s">
+            <audio id="audio-goodmorning" id="audio-goodmorning" preload="none"></audio>
+            <button class="voice-btn" onclick="toggleAudio('audio-goodmorning', this)">
+              <span class="play-icon">▶</span>
+              <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </button>
+            <div class="voice-info">
+              <div class="voice-title">Good Morning</div>
+              <div class="voice-progress-wrap"><div class="voice-progress" id="prog-goodmorning"></div></div>
+            </div>
+          </div>
+
+          <div class="voice-card" style="--vdelay:0.12s">
+            <audio id="audio-goodnight" preload="none"></audio>
+            <button class="voice-btn" onclick="toggleAudio('audio-goodnight', this)">
+              <span class="play-icon">▶</span>
+              <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </button>
+            <div class="voice-info">
+              <div class="voice-title">Good Night</div>
+              <div class="voice-progress-wrap"><div class="voice-progress" id="prog-goodnight"></div></div>
+            </div>
+          </div>
+
+          <div class="voice-card" style="--vdelay:0.19s">
+            <audio id="audio-imissyou" preload="none"></audio>
+            <button class="voice-btn" onclick="toggleAudio('audio-imissyou', this)">
+              <span class="play-icon">▶</span>
+              <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </button>
+            <div class="voice-info">
+              <div class="voice-title">I Miss You</div>
+              <div class="voice-progress-wrap"><div class="voice-progress" id="prog-imissyou"></div></div>
+            </div>
+          </div>
+
+          <div class="voice-card" style="--vdelay:0.26s">
+            <audio id="audio-iloveyou" preload="none"></audio>
+            <button class="voice-btn" onclick="toggleAudio('audio-iloveyou', this)">
+              <span class="play-icon">▶</span>
+              <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </button>
+            <div class="voice-info">
+              <div class="voice-title">I Love You</div>
+              <div class="voice-progress-wrap"><div class="voice-progress" id="prog-iloveyou"></div></div>
+            </div>
+          </div>
+
+          <div class="voice-card" style="--vdelay:0.33s">
+            <audio id="audio-ingat" preload="none"></audio>
+            <button class="voice-btn" onclick="toggleAudio('audio-ingat', this)">
+              <span class="play-icon">▶</span>
+              <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </button>
+            <div class="voice-info">
+              <div class="voice-title">Ingat</div>
+              <div class="voice-progress-wrap"><div class="voice-progress" id="prog-ingat"></div></div>
+            </div>
+          </div>
+
+          <div class="voice-card" style="--vdelay:0.40s">
+            <audio id="audio-message" preload="none"></audio>
+            <button class="voice-btn" onclick="toggleAudio('audio-message', this)">
+              <span class="play-icon">▶</span>
+              <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </button>
+            <div class="voice-info">
+              <div class="voice-title">Message</div>
+              <div class="voice-progress-wrap"><div class="voice-progress" id="prog-message"></div></div>
+            </div>
+          </div>
+
+          <div class="voice-card" style="--vdelay:0.47s">
+            <audio id="audio-reminder" preload="none"></audio>
+            <button class="voice-btn" onclick="toggleAudio('audio-reminder', this)">
+              <span class="play-icon">▶</span>
+              <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </button>
+            <div class="voice-info">
+              <div class="voice-title">Reminder</div>
+              <div class="voice-progress-wrap"><div class="voice-progress" id="prog-reminder"></div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="audiodata.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
