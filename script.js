@@ -96,9 +96,7 @@ let progressInterval = null;
 // Map audio id -> {dataKey, progressId}
 const audioMap = {
   'audio-goodmorning': { key: 'goodmorning',  prog: 'prog-goodmorning' },
-  'audio-goodnight':   { key: 'goodnight',    prog: 'prog-goodnight'   },
-  'audio-imissyou':    { key: 'i_miss_you',   prog: 'prog-imissyou'    },
-  'audio-iloveyou':    { key: 'iloveyou',     prog: 'prog-iloveyou'    },
+  'audio-puyat':       { key: 'goodnight',    prog: 'prog-puyat'       },
   'audio-ingat':       { key: 'ingat',        prog: 'prog-ingat'       },
   'audio-message':     { key: 'message',      prog: 'prog-message'     },
   'audio-reminder':    { key: 'reminder',     prog: 'prog-reminder'    },
@@ -174,3 +172,35 @@ function toggleAudio(audioId, btn) {
 setInterval(() => {
   if (Math.random() < 0.35) spawnHeart();
 }, 2000);
+
+// ===== LIGHTBOX =====
+function openLightbox(src) {
+  const overlay = document.getElementById('pixel-lightbox');
+  const img = document.getElementById('lightbox-img');
+  if (!overlay || !img) return;
+  img.src = src;
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => overlay.classList.add('show'));
+  });
+}
+
+function closeLightbox() {
+  const overlay = document.getElementById('pixel-lightbox');
+  if (!overlay) return;
+  overlay.classList.remove('show');
+  document.body.style.overflow = '';
+  setTimeout(() => {
+    overlay.style.display = 'none';
+    document.getElementById('lightbox-img').src = '';
+  }, 320);
+}
+
+// Keyboard close
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// Preload gallery images
+['FB1.jpg','FB2.jpg','FB3.jpg','FB4.jpg'].forEach(src => {
+  const img = new Image(); img.src = src;
+});

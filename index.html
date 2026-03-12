@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Virtual Hug </title>
+  <title>Virtual Hug 💕</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
 </head>
@@ -12,7 +12,6 @@
   <div class="pixel-bg"></div>
   <div id="hearts-container"></div>
 
-  <!-- Ambient glow orbs -->
   <div class="glow-orb orb1"></div>
   <div class="glow-orb orb2"></div>
   <div class="glow-orb orb3"></div>
@@ -27,7 +26,7 @@
 
     <div class="mc-body">
 
-      <!-- Tulip image (replaces Steve) -->
+      <!-- Tulip image -->
       <div class="tulip-wrap" id="tulip-wrap">
         <img src="Tulips.jpg" alt="Pink tulips" class="tulip-img" id="tulip-img"/>
       </div>
@@ -51,28 +50,24 @@
           <span class="music-note">♪</span> Our Songs <span class="music-note">♪</span>
         </div>
         <div class="spotify-grid">
-
           <div class="spotify-track-wrap" style="--delay:0.05s">
             <iframe src="https://open.spotify.com/embed/track/2IMODbij0lZ5CuAjZi0IDE?utm_source=generator&theme=0"
               width="100%" height="80" frameBorder="0"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"></iframe>
           </div>
-
           <div class="spotify-track-wrap" style="--delay:0.15s">
             <iframe src="https://open.spotify.com/embed/track/3KhjY6JxrGo6ii77SbILG7?utm_source=generator&theme=0"
               width="100%" height="80" frameBorder="0"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"></iframe>
           </div>
-
           <div class="spotify-track-wrap" style="--delay:0.25s">
             <iframe src="https://open.spotify.com/embed/track/43pylwgg4xpOiQ5oCIi33l?utm_source=generator&theme=0"
               width="100%" height="80" frameBorder="0"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"></iframe>
           </div>
-
           <div class="spotify-track-wrap" style="--delay:0.35s">
             <iframe src="https://open.spotify.com/embed/track/2s9DQB5ftRcdIRpj3n3pDR?utm_source=generator&theme=0"
               width="100%" height="80" frameBorder="0"
@@ -80,6 +75,12 @@
               loading="lazy"></iframe>
           </div>
 
+          <div class="spotify-track-wrap" style="--delay:0.35s">
+            <iframe src="https://open.spotify.com/embed/track/7JIuqL4ZqkpfGKQhYlrirs?utm_source=generator&theme=0"
+              width="100%" height="80" frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"></iframe>
+          </div>
         </div>
       </div>
 
@@ -100,7 +101,7 @@
         <div class="voice-grid">
 
           <div class="voice-card" style="--vdelay:0.05s">
-            <audio id="audio-goodmorning" id="audio-goodmorning" preload="none"></audio>
+            <audio id="audio-goodmorning" preload="none"></audio>
             <button class="voice-btn" onclick="toggleAudio('audio-goodmorning', this)">
               <span class="play-icon">▶</span>
               <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span></div>
@@ -186,6 +187,43 @@
         </div>
       </div>
 
+      <!-- Memories Gallery -->
+      <div class="gallery-section">
+        <div class="gallery-label">
+          <span class="camera-icon">📸</span> Gallery <span class="camera-icon">📸</span>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-img-wrap" onclick="openLightbox('FB1.jpg')" style="--gdelay:0.05s">
+            <img src="FB1.jpg" alt="Memory 1" class="gallery-img">
+            <div class="gallery-shine"></div>
+            <div class="gallery-overlay"><span>😚</span></div>
+          </div>
+          <div class="gallery-img-wrap" onclick="openLightbox('FB2.jpg')" style="--gdelay:0.12s">
+            <img src="FB2.jpg" alt="Memory 2" class="gallery-img">
+            <div class="gallery-shine"></div>
+            <div class="gallery-overlay"><span>😫</span></div>
+          </div>
+          <div class="gallery-img-wrap" onclick="openLightbox('FB3.jpg')" style="--gdelay:0.19s">
+            <img src="FB3.jpg" alt="Memory 3" class="gallery-img">
+            <div class="gallery-shine"></div>
+            <div class="gallery-overlay"><span>🥺</span></div>
+          </div>
+          <div class="gallery-img-wrap" onclick="openLightbox('FB4.jpg')" style="--gdelay:0.26s">
+            <img src="FB4.jpg" alt="Memory 4" class="gallery-img">
+            <div class="gallery-shine"></div>
+            <div class="gallery-overlay"><span>😊</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="pixel-lightbox" class="lightbox-overlay" onclick="closeLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <img id="lightbox-img" src="" alt="Zoomed Memory">
+      <div class="lightbox-close" onclick="closeLightbox()">[ CLOSE ]</div>
     </div>
   </div>
 
