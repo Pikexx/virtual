@@ -299,15 +299,123 @@
     </div>
   </div><!-- /page-2 -->
 
-  <!-- ===== FIXED PAGE TAB BAR ===== -->
+  <!-- ========== PAGE 3 ========== -->
+  <div class="page" id="page-3" style="display:none;">
+    <div class="mc-card page3-card">
+      <div class="mc-title-bar">
+        <span class="pixel-heart">🐰</span>
+        <span class="title-text">Something</span>
+        <span class="pixel-heart">🐰</span>
+      </div>
+      <div class="mc-body">
+
+        <div class="rabbit-stage" id="rabbit-stage">
+          <div class="rabbit-hearts" id="rabbit-hearts"></div>
+          <div class="rabbit-bubble" id="rabbit-bubble">
+            <span id="rabbit-bubble-text">tap me! 🐰</span>
+            <div class="bubble-tail"></div>
+          </div>
+          <div class="rabbit-wrap" id="rabbit-wrap" onclick="bunnyClick()">
+            <canvas id="bunny-canvas" width="96" height="112" class="bunny-canvas"></canvas>
+            <div class="rabbit-shadow"></div>
+          </div>
+          <div class="rabbit-grass"><div class="rg-strip"></div><div class="rg-tips"></div></div>
+        </div>
+
+        <p class="rabbit-hint">tap the bunny! 🐾</p>
+        <div class="rabbit-msg-box" id="rabbit-msg-box"><span id="rabbit-msg-text"></span></div>
+
+        <!-- MUSIC CARD FLIP -->
+        <div class="flip-section">
+          <div class="flip-label">
+            <span class="flip-lbl-icon">🌸</span>
+            <span>a song that remind me of you</span>
+            <span class="flip-lbl-icon">🌸</span>
+          </div>
+
+          <div class="flip-garden-wrap">
+            <canvas id="flip-garden-canvas" width="380" height="90" class="flip-garden-canvas"></canvas>
+          </div>
+
+          <div class="flip-scene" id="flip-scene">
+            <div class="flip-card" id="flip-card" onclick="flipMusicCard()">
+
+              <!-- FRONT -->
+              <div class="flip-face flip-front">
+                <div class="flip-front-content">
+                  <p class="flip-song-title-front">Balikat</p>
+                  <p class="flip-tap-hint">tap to open 🌸</p>
+                </div>
+              </div>
+
+              <!-- BACK — dancing bunnies + player -->
+              <div class="flip-face flip-back">
+                <div class="flip-back-content">
+
+                  <!-- dance stage: canvas holds the scene, bubble is HTML overlay -->
+                  <div class="dance-stage-wrap" id="dance-stage-wrap">
+                    <canvas id="dance-canvas" width="380" height="120" class="dance-canvas"></canvas>
+                    <!-- Bubble pinned above brown bunny via JS left offset -->
+                    <div class="dance-bubble" id="dance-bubble">
+                      <span id="dance-bubble-text">i love you felicity</span>
+                      <div class="dance-bubble-tail"></div>
+                    </div>
+                  </div>
+
+                  <div class="bk-album-row">
+                    <div class="bk-album-wrap">
+                      <img src="angbalikat.jpg" alt="Balikat" class="bk-album-img" id="bk-album-img">
+                    </div>
+                    <div class="bk-info">
+                      <div class="bk-title">ang balikat at baywang</div>
+                      <div class="bk-starts">starts at 2:36</div>
+                    </div>
+                  </div>
+                  <div class="bk-player">
+                    <div class="bk-progress-wrap" id="bk-progress-wrap" onclick="bkSeek(event)">
+                      <div class="bk-progress-bar" id="bk-progress-bar"></div>
+                      <div class="bk-progress-thumb" id="bk-progress-thumb"></div>
+                    </div>
+                    <div class="bk-time-row">
+                      <span class="bk-time" id="bk-current-time">2:36</span>
+                      <span class="bk-time" id="bk-total-time">0:00</span>
+                    </div>
+                    <div class="bk-controls">
+                      <button class="bk-play-btn" id="bk-play-btn" onclick="bkTogglePlay(event)">
+                        <span class="bk-play-icon">▶</span>
+                        <div class="bk-bars"><span></span><span></span><span></span><span></span></div>
+                      </button>
+                    </div>
+                  </div>
+                  <audio id="bk-audio" src="balikat.mp3" preload="metadata"></audio>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="flip-message" id="flip-message">
+            <span class="flip-msg-deco">🌸 💌 🌸</span>
+            <p class="flip-msg-text">This is the song that really reminds me of you because it's something I never heard before, and as soon as I listened to it, I felt the spark of us shining at that moment as if I was made just for you and solely for you, and it makes me feel happy and excited about everything, I love you with all I got, baby.</p>
+            <span class="flip-msg-deco">🌷 💕 🌷</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /page-3 -->
+
+  <!-- PAGE TAB BAR -->
   <nav class="tab-bar" id="tab-bar">
     <button class="tab-btn active" id="tab-1" onclick="goToPage(1)">
-      <span class="tab-num">1</span>
-      <span class="tab-label">Home</span>
+      <span class="tab-num">1</span><span class="tab-label">Home</span>
     </button>
     <button class="tab-btn" id="tab-2" onclick="goToPage(2)">
-      <span class="tab-num">2</span>
-      <span class="tab-label">Garden</span>
+      <span class="tab-num">2</span><span class="tab-label">Garden</span>
+    </button>
+    <button class="tab-btn" id="tab-3" onclick="goToPage(3)">
+      <span class="tab-num">3</span><span class="tab-label">Something</span>
     </button>
   </nav>
 
