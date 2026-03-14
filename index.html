@@ -337,30 +337,22 @@
             <canvas id="flip-garden-canvas" width="380" height="90" class="flip-garden-canvas"></canvas>
           </div>
 
-          <div class="flip-scene" id="flip-scene">
+          <div class="flip-scene">
             <div class="flip-card" id="flip-card" onclick="flipMusicCard()">
 
               <!-- FRONT -->
               <div class="flip-face flip-front">
                 <div class="flip-front-content">
-                  <p class="flip-song-title-front">Balikat</p>
+                  <p class="flip-song-title-front">SIKRITT!</p>
                   <p class="flip-tap-hint">tap to open 🌸</p>
                 </div>
               </div>
 
-              <!-- BACK — dancing bunnies + player -->
+              <!-- BACK -->
               <div class="flip-face flip-back">
                 <div class="flip-back-content">
-
-                  <!-- dance stage: canvas holds the scene, bubble is HTML overlay -->
-                  <div class="dance-stage-wrap" id="dance-stage-wrap">
-                    <canvas id="dance-canvas" width="380" height="120" class="dance-canvas"></canvas>
-                    <!-- Bubble pinned above brown bunny via JS left offset -->
-                    <div class="dance-bubble" id="dance-bubble">
-                      <span id="dance-bubble-text">i love you felicity</span>
-                      <div class="dance-bubble-tail"></div>
-                    </div>
-                  </div>
+                  <!-- Dance canvas — bubble drawn ON canvas, no HTML overlay needed -->
+                  <canvas id="dance-canvas" width="380" height="140" class="dance-canvas"></canvas>
 
                   <div class="bk-album-row">
                     <div class="bk-album-wrap">
@@ -388,7 +380,6 @@
                     </div>
                   </div>
                   <audio id="bk-audio" src="balikat.mp3" preload="metadata"></audio>
-
                 </div>
               </div>
 

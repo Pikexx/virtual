@@ -1550,7 +1550,7 @@ function startLetter() {
   typeNext();
 }
 
-// ===== PAGE 3 — PIXEL BUNNY (tap) =====
+// ===== PAGE 3 — TAP BUNNY =====
 var BUNNY_GRID=[[0,0,0,3,3,0,0,3,3,0,0,0],[0,0,3,1,3,0,0,3,1,3,0,0],[0,0,3,2,3,0,0,3,2,3,0,0],[0,0,3,2,3,0,0,3,2,3,0,0],[0,3,3,1,3,3,3,3,1,3,3,0],[0,3,1,1,1,1,1,1,1,1,3,0],[3,1,1,4,1,1,1,4,1,1,1,3],[3,1,5,1,1,6,1,1,1,5,1,3],[3,1,1,1,3,1,3,1,1,1,1,3],[0,3,1,1,1,1,1,1,1,1,3,0],[3,1,1,7,7,7,7,7,1,1,1,3],[3,1,1,7,7,7,7,7,1,1,1,3],[0,3,3,1,1,3,3,1,1,3,3,0],[0,0,3,3,0,3,3,0,3,3,0,0]];
 var BUNNY_PAL={0:null,1:'#f5e6f0',2:'#f9a8d4',3:'#2d0a1a',4:'#1a0010',5:'#fda4af',6:'#f472b6',7:'#edd5e8'};
 function drawPixelBunny(){var c=document.getElementById('bunny-canvas');if(!c)return;var ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);ctx.imageSmoothingEnabled=false;for(var r=0;r<BUNNY_GRID.length;r++)for(var col=0;col<BUNNY_GRID[r].length;col++){var color=BUNNY_PAL[BUNNY_GRID[r][col]];if(!color)continue;ctx.fillStyle=color;ctx.fillRect(col*8,r*8,8,8);}}
@@ -1560,170 +1560,171 @@ var bunnyQuips=["boing!!! 🐰","wheee!! 💕","yay!! 🌷","bun bun!! 🥰","ho
 var bunnyJumping=false,bunnyLastMsg=-1;
 function bunnyClick(){
   if(bunnyJumping)return;bunnyJumping=true;
-  var canvas=document.getElementById('bunny-canvas'),bubble=document.getElementById('rabbit-bubble'),
-      bubbleTxt=document.getElementById('rabbit-bubble-text'),msgBox=document.getElementById('rabbit-msg-box'),
-      msgText=document.getElementById('rabbit-msg-text'),heartsEl=document.getElementById('rabbit-hearts');
+  var canvas=document.getElementById('bunny-canvas'),bubble=document.getElementById('rabbit-bubble'),bubbleTxt=document.getElementById('rabbit-bubble-text'),msgBox=document.getElementById('rabbit-msg-box'),msgText=document.getElementById('rabbit-msg-text'),heartsEl=document.getElementById('rabbit-hearts');
   if(bubbleTxt)bubbleTxt.textContent=bunnyQuips[Math.floor(Math.random()*bunnyQuips.length)];
   if(bubble){bubble.classList.remove('show');void bubble.offsetWidth;bubble.classList.add('show');}
-  if(canvas){canvas.classList.remove('jumping','squish');void canvas.offsetWidth;canvas.classList.add('jumping');
-    setTimeout(function(){canvas.classList.remove('jumping');canvas.classList.add('squish');
-      setTimeout(function(){canvas.classList.remove('squish');canvas.style.animation='none';void canvas.offsetWidth;canvas.style.animation='';bunnyJumping=false;},350);},700);}
+  if(canvas){canvas.classList.remove('jumping','squish');void canvas.offsetWidth;canvas.classList.add('jumping');setTimeout(function(){canvas.classList.remove('jumping');canvas.classList.add('squish');setTimeout(function(){canvas.classList.remove('squish');canvas.style.animation='none';void canvas.offsetWidth;canvas.style.animation='';bunnyJumping=false;},350);},700);}
   spawnBunnyHearts(heartsEl);burstHearts(12);
   setTimeout(function(){if(bubble)bubble.classList.remove('show');},2400);
   var idx;do{idx=Math.floor(Math.random()*bunnyMessages.length);}while(idx===bunnyLastMsg&&bunnyMessages.length>1);bunnyLastMsg=idx;
   if(msgText)msgText.textContent=bunnyMessages[idx];
   if(msgBox){msgBox.classList.remove('show');void msgBox.offsetWidth;msgBox.classList.add('show');msgBox.style.display='block';setTimeout(function(){msgBox.scrollIntoView({behavior:'smooth',block:'nearest'});},100);}
 }
-function spawnBunnyHearts(container){if(!container)return;
-  var emojis=['💕','💗','💖','♥','🌷','✿','💓','🩷','💞','🐰'];
-  for(var i=0;i<12;i++)(function(i){setTimeout(function(){
-    var el=document.createElement('span');el.className='rh-heart';
-    el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    el.style.left=(15+Math.random()*70)+'%';el.style.fontSize=(.8+Math.random()*.9)+'rem';
-    var dur=.9+Math.random()*.8;el.style.animationDuration=dur+'s';
-    container.appendChild(el);setTimeout(function(){el.remove();},dur*1000+100);},i*70);})(i);}
+function spawnBunnyHearts(container){if(!container)return;var emojis=['💕','💗','💖','♥','🌷','✿','💓','🩷','💞','🐰'];for(var i=0;i<12;i++)(function(i){setTimeout(function(){var el=document.createElement('span');el.className='rh-heart';el.textContent=emojis[Math.floor(Math.random()*emojis.length)];el.style.left=(15+Math.random()*70)+'%';el.style.fontSize=(.8+Math.random()*.9)+'rem';var dur=.9+Math.random()*.8;el.style.animationDuration=dur+'s';container.appendChild(el);setTimeout(function(){el.remove();},dur*1000+100);},i*70);})(i);}
 
-// ===== FLIP GARDEN (flower strip + birds) =====
+// ===== FLIP GARDEN =====
 var fgCanvas=null,fgCtx=null,fgRAF=null,fgFlowers=[],fgBirds=[],fgTime=0;
 var FG_FC=[{petal:'#f472b6',center:'#fbbf24',stem:'#4a7a00'},{petal:'#f9a8d4',center:'#fcd34d',stem:'#4a7a00'},{petal:'#e879f9',center:'#fbbf24',stem:'#5a8a00'},{petal:'#fda4af',center:'#fef08a',stem:'#3a6000'},{petal:'#c084fc',center:'#fde047',stem:'#4a7a00'}];
 function fgInit(){
   fgCanvas=document.getElementById('flip-garden-canvas');if(!fgCanvas)return;
   fgCtx=fgCanvas.getContext('2d');var W=fgCanvas.width,H=fgCanvas.height;
-  fgFlowers=[];for(var i=0;i<11;i++)fgFlowers.push({x:(W/12)*(i+1)+(Math.random()-.5)*18,groundY:H-8,stemH:22+Math.random()*28,progress:0,color:FG_FC[Math.floor(Math.random()*FG_FC.length)],sway:Math.random()*Math.PI*2,delay:i*.09});
-  fgBirds=[];for(var b=0;b<4;b++)fgBirds.push({x:Math.random()*W,y:8+Math.random()*22,vx:.4+Math.random()*.5,phase:Math.random()*Math.PI*2,wingT:0,dir:Math.random()<.5?1:-1});
+  fgFlowers=[];for(var i=0;i<11;i++)fgFlowers.push({x:(W/12)*(i+1)+(Math.random()-.5)*16,groundY:H-8,stemH:22+Math.random()*28,progress:0,color:FG_FC[Math.floor(Math.random()*FG_FC.length)],sway:Math.random()*Math.PI*2,delay:i*.09});
+  fgBirds=[];for(var b=0;b<4;b++)fgBirds.push({x:Math.random()*W,y:8+Math.random()*20,vx:.4+Math.random()*.5,phase:Math.random()*Math.PI*2,wingT:0,dir:Math.random()<.5?1:-1});
   if(fgRAF)cancelAnimationFrame(fgRAF);
   var st=performance.now(),gd=2000;
-  function fgTick(now){var el=now-st;fgTime=el/1000;if(!fgCtx)return;
+  function fgTick(now){
+    var el=now-st;fgTime=el/1000;if(!fgCtx)return;
     var W2=fgCanvas.width,H2=fgCanvas.height;fgCtx.clearRect(0,0,W2,H2);
     var sky=fgCtx.createLinearGradient(0,0,0,H2*.6);sky.addColorStop(0,'#1a0010');sky.addColorStop(1,'#2d0020');
     fgCtx.fillStyle=sky;fgCtx.fillRect(0,0,W2,H2);
     fgCtx.fillStyle='#3a6000';fgCtx.fillRect(0,H2-8,W2,8);fgCtx.fillStyle='#5a8a00';fgCtx.fillRect(0,H2-12,W2,4);
     fgFlowers.forEach(function(f){var ts=f.delay*gd,te=ts+gd*.65;if(el>ts)f.progress=Math.min((el-ts)/(te-ts),1);fgDF(fgCtx,f,fgTime);});
     if(el>800){var bA=Math.min((el-800)/400,1);fgBirds.forEach(function(bird){bird.wingT+=.18;bird.x+=bird.vx*bird.dir;bird.y+=Math.sin(bird.phase+fgTime*.8)*.35;if(bird.x>W2+20)bird.x=-20;if(bird.x<-20)bird.x=W2+20;fgDB(fgCtx,bird,bA);});}
-    fgRAF=requestAnimationFrame(fgTick);}
+    fgRAF=requestAnimationFrame(fgTick);
+  }
   fgRAF=requestAnimationFrame(fgTick);
 }
 function fgDF(ctx,f,t){if(f.progress<=0)return;var sw=Math.sin(t*.85+f.sway)*2,sH=f.stemH*Math.min(f.progress,1),gY=f.groundY,x=f.x;ctx.save();ctx.strokeStyle=f.color.stem;ctx.lineWidth=2;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x,gY);ctx.quadraticCurveTo(x+sw*.5,gY-sH*.5,x+sw,gY-sH);ctx.stroke();if(f.progress>.4){var lp=Math.min((f.progress-.4)/.4,1),lx=x+sw*.4,ly=gY-sH*.45;ctx.save();ctx.globalAlpha=lp;ctx.fillStyle='#58961a';ctx.beginPath();ctx.moveTo(lx,ly);ctx.quadraticCurveTo(lx+14*lp,ly-8,lx+11*lp,ly+5);ctx.quadraticCurveTo(lx+3,ly+3,lx,ly);ctx.fill();ctx.restore();}if(f.progress>.7){var pp=Math.min((f.progress-.7)/.3,1),fx=x+sw,fy=gY-sH,pw=5*pp,ph=11*pp;ctx.globalAlpha=pp;for(var k=0;k<5;k++){var ang=(k/5)*Math.PI*2-Math.PI/2;ctx.save();ctx.translate(fx+Math.cos(ang)*pw*.55,fy+Math.sin(ang)*pw*.28);ctx.rotate(ang+Math.PI/2);ctx.fillStyle=f.color.petal;ctx.shadowColor=f.color.petal;ctx.shadowBlur=5;ctx.beginPath();ctx.ellipse(0,-ph*.5,pw*.65,ph*.55,0,0,Math.PI*2);ctx.fill();ctx.restore();}ctx.fillStyle=f.color.center;ctx.shadowColor=f.color.center;ctx.shadowBlur=4;ctx.beginPath();ctx.arc(fx,fy,3*pp,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}ctx.restore();}
 function fgDB(ctx,bird,alpha){var x=bird.x,y=bird.y,wf=Math.sin(bird.wingT)*.7+.3;ctx.save();ctx.globalAlpha=alpha*.8;ctx.strokeStyle='#ffd6ec';ctx.lineWidth=1.5;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(x-5,y-6*wf,x-9,y-1);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(x+5,y-6*wf,x+9,y-1);ctx.stroke();ctx.restore();}
 
-// ===== DANCING BUNNIES =====
+// ===== DANCING BUNNIES (bubble drawn ON canvas) =====
 var danceCanvas=null,danceCtx=null,danceRAF=null,danceTime=0;
 var DANCE_MSGS=["i love you felicity","you are my only one baby","im all yours felicity"];
 var danceMsgIdx=0,danceMsgTimer=0;
-// Pixel size for dance bunnies
-var P=5;
+var danceBubbleAlpha=0; // fade in/out
+var danceBubbleFading=false;
+var currentDanceMsg=DANCE_MSGS[0];
+var nextDanceMsg=null;
 
-// Draw one pixel — helper
-function dp(ctx,col,gx,gy,w,h){ctx.fillStyle=col;ctx.fillRect(gx*P,gy*P,(w||1)*P,(h||1)*P);}
-
-// Draw a pixel bunny for dancing
-// cx,cy = center bottom position in canvas pixels
+// Draw a pixel-art bunny on canvas
+// cx,cy = center-bottom world position
 // facing: 1=right, -1=left
 // phase: 0..1 dance beat
-// colors: {body,earInner,outline,tummy}
-// pose: 'normal' or 'waltz'
-function drawDancer(ctx, cx, cy, facing, phase, colors){
+// cols: {body,earInner,outline,tummy,eye}
+function drawDancer(ctx, cx, cy, facing, phase, cols){
   ctx.save();
   ctx.imageSmoothingEnabled=false;
+  var P=6; // pixel block size
+  var bob=Math.sin(phase*Math.PI*2)*3;
+  ctx.translate(cx, cy+bob);
 
-  // Vertical bob
-  var bob = Math.sin(phase * Math.PI * 2) * 2.5;
-  // Horizontal sway
-  var sway = Math.sin(phase * Math.PI * 2 + 0.5) * 1.5 * facing;
+  function block(color,gx,gy,w,h){ctx.fillStyle=color;ctx.fillRect(gx*P,gy*P,(w||1)*P,(h||1)*P);}
 
-  // Translate origin to feet
-  ctx.translate(cx + sway, cy + bob);
+  var o=cols.outline,bd=cols.body,ei=cols.earInner,tm=cols.tummy,ey=cols.eye;
 
-  var o=colors.outline, bd=colors.body, ei=colors.earInner, tm=colors.tummy;
+  // Ears — mirrored for direction
+  var e1x=facing===1?-1:0, e2x=facing===1?1:2;
+  block(o,e1x,-7,1,4); block(bd,e1x,-6,1,3); block(ei,e1x,-6,1,2);
+  block(o,e2x,-7,1,4); block(bd,e2x,-6,1,3); block(ei,e2x,-6,1,2);
 
-  // --- Ears ---
-  // Ear offset: ears sit slightly inside head
-  // For facing=1 (right): left ear at col -1, right ear at col 2
-  // For facing=-1 (left): mirror
-  var el = facing===1 ? -1 : 1;  // ear left col
-  var er = facing===1 ?  2 : -2; // ear right col (relative)
+  // Head outline + fill
+  block(o,-1,-5,4,1);   // top
+  block(o,-2,-4,1,3);   // left side
+  block(o, 2,-4,1,3);   // right side
+  block(bd,-1,-4,3,3);  // fill
+  block(o,-1,-1,4,1);   // bottom
 
-  // Left ear (inner)
-  ctx.fillStyle=o; ctx.fillRect((el-1)*P,-9*P,3*P,5*P);
-  ctx.fillStyle=bd;ctx.fillRect(el*P,-8*P,P,3*P);
-  ctx.fillStyle=ei;ctx.fillRect(el*P,-8*P,P,2*P);
-  // Right ear
-  ctx.fillStyle=o; ctx.fillRect((er-1)*P,-9*P,3*P,5*P);
-  ctx.fillStyle=bd;ctx.fillRect(er*P,-8*P,P,3*P);
-  ctx.fillStyle=ei;ctx.fillRect(er*P,-8*P,P,2*P);
+  // Eye
+  var ex=facing===1?-1:1;
+  block(ey,ex,-3,1,1);
+  // Nose
+  block('#f472b6',0,-2,1,1);
 
-  // --- Head ---
-  ctx.fillStyle=o;  ctx.fillRect(-2*P,-7*P,5*P,P);   // top
-  ctx.fillStyle=o;  ctx.fillRect(-2*P,-3*P,5*P,P);   // bottom
-  ctx.fillStyle=bd; ctx.fillRect(-2*P,-6*P,5*P,3*P);
-  ctx.fillStyle=o;  ctx.fillRect(-3*P,-6*P,P,3*P);   // left side
-  ctx.fillStyle=o;  ctx.fillRect(3*P,-6*P,P,3*P);    // right side
+  // Body
+  block(o,-1,0,4,1);    // top
+  block(o,-2,1,1,4);    // left
+  block(o, 2,1,1,4);    // right
+  block(bd,-1,1,3,4);   // fill
+  block(tm,0,2,2,2);    // tummy
+  block(o,-1,5,4,1);    // bottom
 
-  // --- Eyes ---
-  // Eye: one pixel for facing direction
-  var eyeX = facing===1 ? -1 : 1;
-  ctx.fillStyle=colors.eye; ctx.fillRect(eyeX*P,-5*P,P,P);
-  // Eye shine
-  ctx.fillStyle='#fff'; ctx.fillRect((eyeX+(facing===1?0.5:-0.5))*P,-5*P,P*.5,P*.5);
-
-  // --- Nose ---
-  ctx.fillStyle='#f472b6'; ctx.fillRect(-0.5*P,-4*P,P,P*.6);
-
-  // --- Body ---
-  ctx.fillStyle=o;  ctx.fillRect(-2*P,-2*P,5*P,P);   // top
-  ctx.fillStyle=o;  ctx.fillRect(-2*P,4*P,5*P,P);    // bottom
-  ctx.fillStyle=bd; ctx.fillRect(-2*P,-1*P,5*P,5*P);
-  ctx.fillStyle=o;  ctx.fillRect(-3*P,-1*P,P,5*P);   // left
-  ctx.fillStyle=o;  ctx.fillRect(3*P,-1*P,P,5*P);    // right
-
-  // --- Tummy ---
-  ctx.fillStyle=tm; ctx.fillRect(-1*P,0,3*P,3*P);
-
-  // --- Legs (alternating step) ---
-  var stepA = Math.sin(phase*Math.PI*2)*1.5;
-  var stepB = Math.sin(phase*Math.PI*2+Math.PI)*1.5;
-  ctx.fillStyle=o;  ctx.fillRect(-2*P,(5+stepA)*P,2*P,P);
-  ctx.fillStyle=bd; ctx.fillRect(-2*P,(5+stepA)*P,2*P,P*.5);
-  ctx.fillStyle=o;  ctx.fillRect(1*P,(5+stepB)*P,2*P,P);
-  ctx.fillStyle=bd; ctx.fillRect(1*P,(5+stepB)*P,2*P,P*.5);
+  // Legs — alternating
+  var stepA=Math.sin(phase*Math.PI*2)*1.8, stepB=Math.sin(phase*Math.PI*2+Math.PI)*1.8;
+  block(o,-1,(6+stepA),1.5,1.5);
+  block(bd,-1,(6+stepA),1.5,1);
+  block(o, 1,(6+stepB),1.5,1.5);
+  block(bd,1,(6+stepB),1.5,1);
 
   ctx.restore();
 }
 
-// Draw the joined hands
-function drawHands(ctx, lx, ly, rx, ry){
-  // Pink = right dancer (higher hand)
-  // Brown = left dancer (raised arm on right side)
-  // Interpolate midpoint
-  var mx=(lx+rx)/2, my=(ly+ry)/2;
-  // Connection line
+// Draw speech bubble on canvas above a given cx,cy
+function drawSpeechBubble(ctx, cx, cy, text, alpha){
+  if(alpha<=0||!text)return;
   ctx.save();
-  ctx.strokeStyle='#fda4af'; ctx.lineWidth=3; ctx.lineCap='round';
-  ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(mx,my); ctx.lineTo(rx,ry); ctx.stroke();
-  // Small heart at join
-  ctx.fillStyle='#f472b6'; ctx.shadowColor='#f472b6'; ctx.shadowBlur=8;
-  ctx.font='10px serif'; ctx.fillText('♥',mx-5,my+4);
-  ctx.shadowBlur=0;
+  ctx.globalAlpha=alpha;
+  ctx.font='bold 8px monospace';
+  var pad=7, tw=ctx.measureText(text).width;
+  var bw=tw+pad*2, bh=18;
+  var bx=cx-bw/2, by=cy-bh-14;
+  // Clamp to canvas
+  if(bx<3)bx=3;
+  if(bx+bw>ctx.canvas.width-3)bx=ctx.canvas.width-3-bw;
+
+  // Box fill
+  ctx.fillStyle='#fff0f8';
+  ctx.fillRect(bx,by,bw,bh);
+  // Box border
+  ctx.strokeStyle='#c2185b';ctx.lineWidth=2;
+  ctx.strokeRect(bx,by,bw,bh);
+  // Tail pointing down-center toward brown bunny
+  var tailX=cx;
+  ctx.fillStyle='#fff0f8';
+  ctx.beginPath();ctx.moveTo(tailX-5,by+bh);ctx.lineTo(tailX+5,by+bh);ctx.lineTo(tailX,by+bh+10);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#c2185b';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(tailX-5,by+bh);ctx.lineTo(tailX,by+bh+10);ctx.lineTo(tailX+5,by+bh);ctx.stroke();
+
+  // Text
+  ctx.fillStyle='#2d0a1a';ctx.font='bold 8px monospace';
+  ctx.fillText(text,bx+pad,by+bh-5);
   ctx.restore();
 }
 
 function danceInit(){
   danceCanvas=document.getElementById('dance-canvas');if(!danceCanvas)return;
   danceCtx=danceCanvas.getContext('2d');
-  danceTime=0; danceMsgIdx=0; danceMsgTimer=0;
+  danceTime=0;danceMsgIdx=0;danceMsgTimer=0;
+  danceBubbleAlpha=0;danceBubbleFading=false;
+  currentDanceMsg=DANCE_MSGS[0];nextDanceMsg=null;
   if(danceRAF){cancelAnimationFrame(danceRAF);danceRAF=null;}
-  showDanceBubble(DANCE_MSGS[0]);
   var lastTs=null;
 
   function danceTick(now){
     if(!lastTs)lastTs=now;
     var dt=Math.min((now-lastTs)/1000,.05);lastTs=now;
-    danceTime+=dt; danceMsgTimer+=dt;
-    // Cycle messages every 3s
-    if(danceMsgTimer>3.2){danceMsgTimer=0;danceMsgIdx=(danceMsgIdx+1)%DANCE_MSGS.length;showDanceBubble(DANCE_MSGS[danceMsgIdx]);}
-    if(!danceCtx)return;
+    danceTime+=dt;danceMsgTimer+=dt;
 
-    var W=danceCanvas.width, H=danceCanvas.height;
+    // Bubble fade logic
+    if(!danceBubbleFading){
+      // Fade in
+      danceBubbleAlpha=Math.min(1,danceBubbleAlpha+dt*2.5);
+    }
+    // Cycle message every 3.2s — fade out then swap then fade in
+    if(danceMsgTimer>3.2&&!danceBubbleFading){
+      danceBubbleFading=true;
+    }
+    if(danceBubbleFading){
+      danceBubbleAlpha=Math.max(0,danceBubbleAlpha-dt*3);
+      if(danceBubbleAlpha===0){
+        danceBubbleFading=false;
+        danceMsgTimer=0;
+        danceMsgIdx=(danceMsgIdx+1)%DANCE_MSGS.length;
+        currentDanceMsg=DANCE_MSGS[danceMsgIdx];
+      }
+    }
+
+    if(!danceCtx)return;
+    var W=danceCanvas.width,H=danceCanvas.height;
     danceCtx.clearRect(0,0,W,H);
 
     // Background
@@ -1735,98 +1736,79 @@ function danceInit(){
     danceCtx.fillStyle='#3a1a30';danceCtx.fillRect(0,H-10,W,10);
     danceCtx.fillStyle='#5a2050';danceCtx.fillRect(0,H-12,W,2);
 
-    // Background ambient hearts
-    for(var h=0;h<6;h++){
-      var hx=W*.1+h*(W*.16)+Math.sin(danceTime*.6+h)*14;
-      var hy=H*.15+Math.cos(danceTime*.5+h*1.1)*12;
-      danceCtx.save();danceCtx.globalAlpha=.12+Math.sin(danceTime*1.5+h)*.06;
+    // Ambient hearts
+    for(var h=0;h<5;h++){
+      var hx=W*.12+h*(W*.18)+Math.sin(danceTime*.6+h)*12;
+      var hy=H*.12+Math.cos(danceTime*.5+h*1.1)*10;
+      danceCtx.save();danceCtx.globalAlpha=.1+Math.sin(danceTime*1.5+h)*.05;
       danceCtx.fillStyle='#f472b6';danceCtx.font='11px serif';danceCtx.fillText('♥',hx,hy);
       danceCtx.restore();
     }
 
-    // Dance phase — full beat every 1.8s
     var dPhase=(danceTime%1.8)/1.8;
-    // Shared gentle sway
-    var sway=Math.sin(danceTime*Math.PI*.8)*6;
+    var sway=Math.sin(danceTime*Math.PI*.8)*5;
+    var groundY=H-16;
+    var P=6;
 
-    var groundY=H-14;
-    // Brown bunny: left, facing right (1)
-    var bx=W/2-22+sway*.3;
-    // Pink bunny: right, facing left (-1)
-    var px2=W/2+22+sway*.3;
+    // Brown bunny: LEFT side, facing RIGHT
+    var bx=W/2-28+sway*.25;
+    // Pink bunny: RIGHT side, facing LEFT
+    var px2=W/2+28+sway*.25;
 
-    // Raised hand heights — brown raises RIGHT arm, pink raises LEFT arm (toward each other)
-    // Brown right arm tip (toward pink): slightly above mid-body
-    var browArmY = groundY - P*5 + Math.sin(dPhase*Math.PI*2)*P;
-    var browArmX = bx + P*4;   // right side of brown bunny
-    // Pink left arm tip (toward brown): mirrored
-    var pinkArmY = groundY - P*5 + Math.sin((dPhase+.5)*Math.PI*2)*P;
-    var pinkArmX = px2 - P*4;  // left side of pink bunny
+    // Arms for holding hands
+    // Brown right arm tip:
+    var bArmX=bx+P*3, bArmY=groundY-P*4+Math.sin(dPhase*Math.PI*2)*P*.8;
+    // Pink left arm tip:
+    var pArmX=px2-P*3, pArmY=groundY-P*4+Math.sin((dPhase+.5)*Math.PI*2)*P*.8;
 
     // Draw bunnies
-    drawDancer(danceCtx, bx, groundY, 1, dPhase, {
-      body:'#8B6040', earInner:'#c49060', outline:'#3a1a08', tummy:'rgba(160,120,80,0.4)', eye:'#1a0010'
-    });
-    drawDancer(danceCtx, px2, groundY, -1, dPhase+.5, {
-      body:'#fce7f3', earInner:'#f9a8d4', outline:'#2d0a1a', tummy:'rgba(255,240,248,0.5)', eye:'#1a0010'
-    });
+    drawDancer(danceCtx, bx, groundY, 1, dPhase,
+      {body:'#8B6040',earInner:'#c49060',outline:'#3a1a08',tummy:'rgba(140,100,60,.4)',eye:'#1a0010'});
+    drawDancer(danceCtx, px2, groundY, -1, dPhase+.5,
+      {body:'#fce7f3',earInner:'#f9a8d4',outline:'#2d0a1a',tummy:'rgba(255,240,248,.5)',eye:'#1a0010'});
 
-    // Draw joined hands between them
-    drawHands(danceCtx, browArmX, browArmY, pinkArmX, pinkArmY);
+    // Held hands connection
+    danceCtx.save();
+    danceCtx.strokeStyle='#fda4af';danceCtx.lineWidth=3;danceCtx.lineCap='round';
+    danceCtx.beginPath();danceCtx.moveTo(bArmX,bArmY);danceCtx.lineTo(pArmX,pArmY);danceCtx.stroke();
+    // Heart at midpoint
+    var mx=(bArmX+pArmX)/2,my=(bArmY+pArmY)/2;
+    danceCtx.fillStyle='#f472b6';danceCtx.shadowColor='#f472b6';danceCtx.shadowBlur=8;
+    danceCtx.font='10px serif';danceCtx.fillText('♥',mx-4,my+4);
+    danceCtx.shadowBlur=0;
+    danceCtx.restore();
 
-    // Brown bunny left arm on own waist — draw small horizontal line
+    // Brown bunny's left arm on waist
     danceCtx.save();
     danceCtx.strokeStyle='#8B6040';danceCtx.lineWidth=3;danceCtx.lineCap='round';
     danceCtx.beginPath();
-    danceCtx.moveTo(bx-P*3,groundY-P*1.5);
-    danceCtx.lineTo(bx-P*2,groundY-P*.8);
+    danceCtx.moveTo(bx-P*2,groundY-P*1.5);
+    danceCtx.quadraticCurveTo(bx-P*3,groundY-P,bx-P*1.5,groundY-P*.5);
     danceCtx.stroke();
     danceCtx.restore();
 
     // Sparkles
     for(var s=0;s<4;s++){
-      var sA=danceTime*2+s*(Math.PI/2);var sr2=35+Math.sin(danceTime*3+s)*8;
-      var sx2=W/2+Math.cos(sA)*sr2+sway*.2,sy2=groundY-P*4+Math.sin(sA)*sr2*.35;
-      var sa2=.35+Math.sin(danceTime*4+s)*.2;
-      danceCtx.save();danceCtx.globalAlpha=Math.max(0,sa2);danceCtx.fillStyle='#ffd6ec';
-      danceCtx.shadowColor='#f472b6';danceCtx.shadowBlur=5;
-      var ss=1.5+Math.sin(danceTime*5+s);danceCtx.fillRect(sx2,sy2,ss,ss);
-      danceCtx.restore();
+      var sA=danceTime*1.8+s*(Math.PI*.5);var sr=38+Math.sin(danceTime*2.5+s)*9;
+      var sx=W/2+Math.cos(sA)*sr+sway*.2,sy=groundY-P*3.5+Math.sin(sA)*sr*.3;
+      danceCtx.save();danceCtx.globalAlpha=Math.max(0,.3+Math.sin(danceTime*4+s)*.2);
+      danceCtx.fillStyle='#ffd6ec';danceCtx.shadowColor='#f472b6';danceCtx.shadowBlur=4;
+      var ss=1.5+Math.sin(danceTime*5+s);danceCtx.fillRect(sx,sy,ss,ss);danceCtx.restore();
     }
 
-    // Update speech bubble position — above brown bunny
-    updateDanceBubblePos(bx, groundY);
+    // *** SPEECH BUBBLE drawn directly on canvas above brown bunny ***
+    // Bubble top: around groundY - P*8 (above head)
+    var bubbleCX = bx;
+    var bubbleCY = groundY - P*9 + Math.sin(danceTime*2)*2; // slight float
+    drawSpeechBubble(danceCtx, bubbleCX, bubbleCY, currentDanceMsg, danceBubbleAlpha);
+
     danceRAF=requestAnimationFrame(danceTick);
   }
   danceRAF=requestAnimationFrame(danceTick);
 }
 
-function updateDanceBubblePos(bx, groundY){
-  var wrap=document.getElementById('dance-stage-wrap');
-  var el=document.getElementById('dance-bubble');
-  if(!el||!wrap||!danceCanvas)return;
-  // Canvas display width may differ from canvas.width due to CSS scaling
-  var scaleX=wrap.offsetWidth/danceCanvas.width;
-  var scaledBx=bx*scaleX;
-  var bubW=el.offsetWidth||90;
-  // Position bubble: centered on brown bunny x, above canvas top (negative bottom from stage bottom)
-  el.style.left=Math.max(4,scaledBx-bubW/2)+'px';
-  el.style.bottom=(danceCanvas.height*scaleX-8)+'px'; // just above canvas top edge inside wrap
-  // Actually position from top of wrap
-  el.style.bottom='';
-  el.style.top='-38px';
-}
-
-function showDanceBubble(msg){
-  var el=document.getElementById('dance-bubble'),txt=document.getElementById('dance-bubble-text');
-  if(!el||!txt)return;
-  el.classList.remove('show');
-  setTimeout(function(){txt.textContent=msg;el.classList.add('show');},200);
-}
-
-// ===== MUSIC CARD FLIP + PLAYER =====
+// ===== MUSIC CARD FLIP =====
 var cardFlipped=false,bkAudio=null,bkPlaying=false,bkProgressInterval=null,BK_START=156;
-
 function flipMusicCard(){
   if(cardFlipped)return;cardFlipped=true;
   var card=document.getElementById('flip-card'),msg=document.getElementById('flip-message');
@@ -1850,6 +1832,5 @@ function bkUpdateTime(){if(!bkAudio)return;var cur=bkAudio.currentTime||BK_START
 function bkFmt(s){var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
 function bkSeek(e){if(!bkAudio||!bkAudio.duration)return;var wrap=document.getElementById('bk-progress-wrap');if(!wrap)return;var rect=wrap.getBoundingClientRect(),pct=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));bkAudio.currentTime=pct*bkAudio.duration;bkUpdateTime();}
 
-// Page 3 init
 var _p3orig=typeof goToPage==='function'?goToPage:null;
 goToPage=function(num){if(_p3orig)_p3orig(num);if(num===3){setTimeout(function(){drawPixelBunny();fgInit();},60);}};
