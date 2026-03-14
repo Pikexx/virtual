@@ -333,6 +333,7 @@
             <span class="flip-lbl-icon">🌸</span>
           </div>
 
+          <!-- Growing flower + birds strip -->
           <div class="flip-garden-wrap">
             <canvas id="flip-garden-canvas" width="380" height="90" class="flip-garden-canvas"></canvas>
           </div>
@@ -351,9 +352,11 @@
               <!-- BACK -->
               <div class="flip-face flip-back">
                 <div class="flip-back-content">
-                  <!-- Dance canvas — bubble drawn ON canvas, no HTML overlay needed -->
-                  <canvas id="dance-canvas" width="380" height="140" class="dance-canvas"></canvas>
 
+                  <!-- Dance canvas -->
+                  <canvas id="dance-canvas" width="380" height="130" class="dance-canvas"></canvas>
+
+                  <!-- Album + player -->
                   <div class="bk-album-row">
                     <div class="bk-album-wrap">
                       <img src="angbalikat.jpg" alt="Balikat" class="bk-album-img" id="bk-album-img">
@@ -379,6 +382,15 @@
                       </button>
                     </div>
                   </div>
+
+                  <!-- Lyrics panel -->
+                  <div class="bk-lyrics-panel" id="bk-lyrics-panel">
+                    <div class="bk-lyrics-label">♪ Lyrics</div>
+                    <div class="bk-lyrics-scroll" id="bk-lyrics-scroll">
+                      <div id="bk-lyrics-lines"></div>
+                    </div>
+                  </div>
+
                   <audio id="bk-audio" src="balikat.mp3" preload="metadata"></audio>
                 </div>
               </div>
@@ -397,6 +409,103 @@
     </div>
   </div><!-- /page-3 -->
 
+  <!-- ========== PAGE 4 ========== -->
+  <div class="page" id="page-4" style="display:none;">
+    <div class="mc-card page4-card">
+      <div class="mc-title-bar">
+        <span class="pixel-heart">💌</span>
+        <span class="title-text">apology for felicity</span>
+        <span class="pixel-heart">💌</span>
+      </div>
+      <div class="mc-body">
+
+        <div class="apo-label-row">
+          <span class="apo-label-icon">🎬</span>
+          <span class="apo-label-text">Apology Video</span>
+          <span class="apo-label-icon">🎬</span>
+        </div>
+
+        <div class="vid-collapsed" id="vid-collapsed" onclick="expandVideo()">
+          <div class="vid-pill-shimmer"></div>
+          <div class="vid-collapsed-icon">▶</div>
+          <div class="vid-collapsed-text">tap to watch</div>
+        </div>
+
+        <div class="vid-player" id="vid-player">
+          <video id="apo-video" class="apo-video" playsinline preload="none">
+            <source src="video.mp4" type="video/mp4">
+          </video>
+          <div class="vid-controls">
+            <button class="vid-play-btn" id="vid-play-btn" onclick="vidToggle(event)">
+              <span id="vid-play-icon">▶</span>
+            </button>
+            <div class="vid-prog-wrap" id="vid-prog-wrap" onclick="vidSeek(event)">
+              <div class="vid-prog-fill" id="vid-prog-fill"></div>
+              <div class="vid-prog-dot"  id="vid-prog-dot"></div>
+            </div>
+            <span class="vid-time" id="vid-time">0:00</span>
+            <button class="vid-fs-btn" onclick="vidFullscreen()">⛶</button>
+          </div>
+        </div>
+
+        <div class="apo-msg-box" id="apo-msg-box">
+          <div class="apo-msg-header">
+            <span class="apo-msg-heart">💗</span>
+            <span class="apo-msg-title">a message for you</span>
+            <span class="apo-msg-heart">💗</span>
+          </div>
+          <div class="apo-msg-body">
+            Baby, as you're reading this, I hope you know how much you mean to me and kung gaano kita kamahal, you always have a special place in my heart, and even if we are so far away from each other, that doesn't stop me from loving you more kasi I know distance doesn't matter when I love you more than distance can do, like always, baby, mahal na mahal kita ng sobra-sobra.
+          </div>
+        </div>
+
+        <div class="apo-buttons-wrap" id="apo-buttons-wrap">
+          <p class="apo-question">will you accept my apology? 🥺</p>
+          <div class="apo-btn-row" id="apo-btn-row">
+            <button class="apo-btn apo-yes" id="apo-yes" onclick="apoYes()">Yes 💗</button>
+            <button class="apo-btn apo-no"  id="apo-no"  onclick="apoNo()">No</button>
+          </div>
+        </div>
+
+        <div class="apo-accepted" id="apo-accepted">
+          <div class="apo-accepted-hearts" id="apo-accepted-hearts"></div>
+          <div class="apo-accepted-img-wrap">
+            <img src="picture.png" alt="us" class="apo-accepted-img" id="apo-accepted-img">
+            <div class="apo-accepted-glow"></div>
+          </div>
+          <div class="apo-accepted-msg">
+            <div class="apo-accepted-title">Thank you, baby 💗</div>
+            <p class="apo-accepted-text">I love you so much, Felicity. Always and forever, no matter what. 🌷</p>
+          </div>
+        </div>
+
+        <!-- BOUQUET — canvas hidden until button click -->
+        <div class="bouquet-section">
+          <div class="bouquet-label-row">
+            <span class="bouquet-deco">🌷</span>
+            <span class="bouquet-label-text">for you my felicity</span>
+            <span class="bouquet-deco">🌷</span>
+          </div>
+          <div class="bouquet-canvas-wrap" id="bouquet-canvas-wrap">
+            <canvas id="bouquet-canvas" width="320" height="420"></canvas>
+          </div>
+          <div class="bouquet-btn-wrap">
+            <button class="bouquet-btn" id="bouquet-btn" onclick="bloomBouquet()">
+              <span id="bouquet-btn-text">🌷 Give flowers</span>
+            </button>
+          </div>
+          <div class="bouquet-msg" id="bouquet-msg">
+            <div class="bouquet-msg-inner">
+              <span class="bouquet-msg-deco">🌷 💗 🌷</span>
+              <p class="bouquet-msg-line">Just like these tulips bloom for you,<br>my love only grows more beautiful every day.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /page-4 -->
+
   <!-- PAGE TAB BAR -->
   <nav class="tab-bar" id="tab-bar">
     <button class="tab-btn active" id="tab-1" onclick="goToPage(1)">
@@ -407,6 +516,9 @@
     </button>
     <button class="tab-btn" id="tab-3" onclick="goToPage(3)">
       <span class="tab-num">3</span><span class="tab-label">Something</span>
+    </button>
+    <button class="tab-btn" id="tab-4" onclick="goToPage(4)">
+      <span class="tab-num">4</span><span class="tab-label">Apology</span>
     </button>
   </nav>
 
